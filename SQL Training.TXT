@@ -1,0 +1,374 @@
+
+create table Students(
+Studentid int primary key,
+Name varchar(50),
+Surname varchar (50),
+Birthdate date,
+Gender nvarchar(50),
+Class nvarchar(50)
+)
+
+insert into Students values(1,'Raj','Mohan','2003-Sep-11','male','10th'),
+(2,'Rahul','Pradhan','2004-Dec-09','Female','8th'),
+(3,'Riya','Mishra','2001-Nov-21','male','9th'),
+(4,'Kirloskar','Dinshaw','2003-Nov-21','male','10th'),
+(5,'Parimal','Sahoo','2003-Nov-21','Female','10th'),
+(6,'Arjun','Vinayak','2005-Aug-06','male','5th'),
+(7,'Lalit','Birat','1998-jan-05','male','12th'),
+(8,'Sanghamitra','Nayak','2000-Nov-16','Female','10th'),
+(9,'Sweta','Rath','2001-Mar-15','Female','10th'),
+(10,'Shree','Mishra','2008-may-09','Female','5th');
+
+create table Borrow(
+Borrowid int primary key,
+Studentid int foreign key references Students(Studentid),
+Bookid int Books(Bookid),
+Takendate date,
+Broughtdate date
+)
+
+insert into borrows values(111,121132,117,'2001-Dec-20','2002-Dec-20'),
+(112,121133,118,'2001-Jan-20','2002-Jan-21'),
+(113,121134,119,'2003-Jan-20','2003-Feb-21'),
+(114,121135,120,'2004-Jan-21','2003-Jan-21'),
+(115,121136,121,'2002-Jan-21','2003-Feb-22'),
+(116,121137,122,'2003-Jan-22','2004-Mar-21'),
+(117,121138,123,'2004-Jan-22','2005-Mar-22'),
+(118,121139,124,'2005-Feb-23','2006-Feb-23'),
+(119,121140,125,'2006-Mar-24','2007-Jan-24'),
+(120,121141,126,'2004-March-24','2007-Jan-24');
+
+Create Table BookTypes (
+Typeid int primary key,
+Name varchar(50)
+)
+
+insert into BookTypes values(93712, 'Security Analysis'),
+(93713,'BusinessC'),
+(93714,'InsolvencyL'),
+(93715,'OperationSM'),
+(93716,'SettingB'),
+(93717,'Secretarial'),
+(93718,'Financial M'),
+(93719,'MacroT'),
+(93720,'Crafting whitepaper'),
+(93721,'Gate 2022');
+
+Create Table Authors(
+Authorid int primary key,
+Name Varchar(50),
+Surname varchar(50)
+)
+
+insert into authors values(13179,'Srinivasan','Srimani'),
+(13180,'HC','Verma'),
+(13181,'Shankar','Divakar'),
+(13182,'Johsons','Dinshaw'),
+(13183,'Kindle','Growth'),
+(13184,'Thomas','Jacobs'),
+(13185,'Raj','Nivasan'),
+(13186,'Shri Sai','Net'),
+(13187,'Chris','Harris'),
+(13188,'Dinanad','Tilak'),
+(13189,'Henry','Ferralis');
+
+
+Create table Books (
+Bookid int primary key ,
+name varchar(50),
+pagecount int,
+authorid int foreign key references Authors(Authorid),
+typeid int foreign key references BookTypes(Typeid)
+;
+
+insert into books values(117, 'Security Analysis',170,13179,93713),
+(118,'Business C',171,13180,94714),
+(119,'Insolvency L',172,13181,94715),
+(120,'Operations SM',173,13182,94716),
+(121,'SettingB',174,13183,94717),
+(122,'Secretarial',175,13184,94718),
+(123,'Financial M',176,13185,94719),
+(124,'Macro T',177,13186,95720),
+(125,'Crafting Whitepaper',178,13187,95721),
+(126,'Gate 2022',179,13188,95721);
+
+----------------------------------------------
+--2
+select name,surname,class from Student_Table1
+
+Output:
+Biswajit	Pradhan	10th
+Suhana	Priyadrshini	8th
+Rakesh	Mishra	9th
+Satyajit	Pradhan	10th
+Swati	Sahoo	10th Sci
+Arjun	Vijayan	5th
+Kohali	Birat	12th
+Sanghamitra	Nayak	10th math
+Sweta	Rath	10th Bio
+Shree	Mishra	5th
+--------------------------------------------------
+--4
+
+select name from Students where Gender='Female' and Class= '10th math';
+Output:
+Sanghamitra
+
+---------------------------------------------------------------------------------
+--5
+select name,Surname,Class from Students where  Class= '10th math' or Class= '10th sci';
+Output:
+Swati	Sahoo	10th Sci
+Sanghamitra	Nayak	10th math
+
+---------------------------------------------------------------------------------------
+--6
+
+Select name+''+Surname as namesurname from Students   
+Output:
+BiswajitPradhan
+SuhanaPriyadrshini
+RakeshMishra
+SatyajitPradhan
+SwatiSahoo
+ArjunVijayan
+KohaliBirat
+SanghamitraNayak
+SwetaRath
+ShreeMishra
+
+-------------------------------------------------------------------------------------
+--7
+select Distinct class from Students 
+Output:
+
+10th
+10th Bio
+10th math
+10th Sci
+12th
+5th
+8th
+9th
+--------------------------------------------------------------------------------------------
+--8
+
+select name from Students where 
+Birthdate= '1989-02-11';
+Output:
+
+Name
+
+
+=-----------------------------------------------------------------
+--9
+
+select top(10) name,Surname,Birthdate from Students
+
+Output:
+
+Biswajit	Pradhan	2003-09-11
+Suhana	Priyadrshini	2004-12-09
+Rakesh	Mishra	2001-11-21
+Satyajit	Pradhan	2003-11-21
+Swati	Sahoo	2003-11-21
+Arjun	Vijayan	2005-08-06
+Kohali	Birat	1998-01-05
+Sanghamitra	Nayak	2000-11-16
+Sweta	Rath	2001-03-15
+Shree	Mishra	2008-05-09 
+
+---------------------------------------------------------------------
+--10
+
+insert into Authors values(11,'Smith','Allen')  
+--
+-------------------------------------------------
+--11
+select * from Students where class='10th math'
+update Students
+set class='10th Bio'
+where Studentid=9
+
+Output:
+
+8	Sanghamitra	Nayak	2000-11-16	Female	10th math
+-------------------------------------------------
+--12
+select name from Students where Birthdate=null
+
+Output:
+
+
+
+
+-------------------------------------------------
+--13
+select s.name,s.Surname,B.Broughtdate from Students S
+inner join Borrows B on s.Studentid=B.Studentid
+
+Output:
+
+Biswajit	Pradhan	2009-05-17
+Sanghamitra	Nayak	2009-08-01
+Suhana	Priyadrshini	2009-05-17
+Swati	Sahoo	2007-09-17
+Kohali	Birat	2009-01-16
+Arjun	Vijayan	2010-02-20
+Kohali	Birat	2009-03-24
+Satyajit	Pradhan	2008-05-17
+Rakesh	Mishra	2009-05-17
+Shree	Mishra	2009-05-20
+
+-----------------------------------------------------
+--14
+select st.Name,b.name,a.Name as authname,st.Class,bw.Takendate,bt.Name as booktype from Students st 
+  inner join Borrows bw on st.Studentid=bw.Studentid
+  inner join [Books] b on b.Bookid =bw.Bookid
+  inner join Authors a on a.Authorid=b.authorid
+  inner join BookTypes bt on bt.Typeid=b.[typeid]
+Output:
+
+
+Sanghamitra	Small Things	Arundhati	10th math	2009-02-18	Small Things
+Biswajit	Travel	Vikram	10th	2009-02-17	Travel
+Shree	Travel	Vikram	5th	2009-03-17	Travel
+Suhana	we	Khuswant	8th	2008-02-24	we
+Arjun	Chandalika	Jhumpa	5th	2008-09-20	Chandalika
+Satyajit	Jhumpa	Amitav	10th	2008-02-28	Jhumpa
+Kohali	Malgudi Days	Chetan	12th	2009-02-01	Malgudi Days
+Rakesh	Cheta Bhagat	Kiran	9th	2009-01-15	Chetan Bhagat
+Kohali	Inheritance Of Loss	Amish	12th	2009-05-06	Inheritance Of Loss
+Swati	Lanka	Amrita	10th Sci	2007-02-17	Lanka
+
+  ------------------------------------------------------------------------
+  --15
+
+  delete from Authors where Authorid in (
+ select Authorid from Authors where Authorid not in (select authorid from books where bookid in (select bookid from [IGT].[dbo].[Borrows])))
+
+Output:
+Deleted
+
+-----------------------------------------------------------------------------
+--16
+Create procedure IGT
+AS
+begin 
+Select class,gender from [dbo].[Students]
+end
+Output:
+
+
+Created
+------------------------------------------------------------------------------
+-----------17
+
+Create procedure ins_books
+(
+@Bookid int ,
+	@name varchar(50) =NULL,
+	@pagecount int= NULL,
+	@authorid int=NULL,
+	@typeid int= NULL
+	)
+AS
+begin 
+insert into books (Bookid,name,pagecount,authorid,typeid)
+values (@Bookid,@name,@pagecount,@authorid,@typeid)
+end
+go
+Output:
+
+
+
+Created
+
+
+
+
+
+--------------------------------------------------------------------------------------
+---18
+Select  Name,
+    Case when Gender = 'Male' then 'M' when Gender = 'Female' then 'F'  end
+from Students
+Output:
+
+Biswajit	M
+Suhana      	F
+Rakesh	        M
+Satyajit	M
+Swati    	F
+Arjun   	M
+Kohali  	M
+Sanghamitra	F
+Sweta	        F
+Shree	        F
+
+------------------------------------------------------------------------------------------
+--19
+select COUNT(b.studentID)as counts,DateName( month , DateAdd( month ,DATEPART(MONTH,b.takenDate) , 0 ) - 1 ) as Month , DATEPART(YEAR,b.takenDate)as years
+from Students as a
+full join Borrows as b
+on a.studentID=b.studentID
+group by 
+DATEPART(YEAR,b.takenDate),
+DATEPART(MONTH,b.takenDate)
+having COUNT(b.studentID)>=1;
+
+
+Output:
+
+1	January  	2009
+1	February	2007
+2	February	2008
+3	February	2009
+1	March	        2009
+1	May      	2009
+1	September	2008
+-------------------------------------------------------------------------
+-
+______________________________________________________________________________________________________
+
+---20 New
+
+ select * from (select Name,COUNT(b.studentID)as counts
+from Students as a
+inner join Borrows as b
+on a.studentID=b.studentID
+group by 
+name
+having COUNT(b.studentID)>1) as table1
+where counts=
+(select max(counts) from (select Name,COUNT(b.studentID)as counts
+from Students as a
+inner join Borrows as b
+on a.studentID=b.studentID
+group by 
+name
+having COUNT(b.studentID)>0) as table2)
+
+
+Output:
+
+
+
+
+
+
+
+Kohali	2
+---------------------------------------------------------------------------------------------------
+
+--7
+
+select Bookname,pagescount from Books where pagescount between 50 and 60
+ 
+Output:
+
+Jhumpa	53
+
+
+
+  select name from Students

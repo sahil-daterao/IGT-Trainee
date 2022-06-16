@@ -1,0 +1,22 @@
+Hadoop Features
+- Data is distributed over several machines
+- Replicated to ensure their durability to failure & high availaibility to parallel applications
+- Designed for very large files (i nGBs, TBs)
+- Block oriented
+- Unix like commands interface
+- Write once and read many times
+- Commodity hardware
+- Fault Tolerant when nodes fail
+- Scalable by adding new nodes
+
+HDFS Design CHallaenges
+- System expects large files for processing; small number of very large files would be stored
+- Several machines ivolved in storing a file, loss of machine should be handled.
+- lock size to be important considerationm this is to keep smaller meta data at the node for each file
+
+HDFS Challenges
+- Can this data be stored in 1 machine?
+- Hard droves are approximately 500GBB to 2 TB in size 
+- Even if you add external hard drives, you cacn't store the data in Peta bytes
+- YOu would'nt be able to open or process that file because of insufficient RAM
+- And Processing it would take months to analyze this data
